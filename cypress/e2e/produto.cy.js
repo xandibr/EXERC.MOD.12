@@ -3,75 +3,25 @@
 context('Comprando Produtos', () => {
 
     beforeEach(() => {
-        cy.visit('minha-conta')
         cy.login()
+    });
+
+    it.only('Adicionando produtos ao carrinho', () => {
         cy.visit('produtos')
+        cy.addProdutos('Abominable Hoodie', 'XL', 'Green')
+        cy.visit('produtos')
+        cy.addProdutos('Atlas Fitness Tank', 'XL', 'Blue')
+        cy.visit('produtos/page/2/')
+        cy.addProdutos('Autumn Pullie', 'XL', 'Purple')
+        cy.visit('produtos/page/2/')
+        cy.addProdutos('Caesar Warm-Up Pant', '32', 'Gray')
+
+        cy.get('.dropdown-toggle > .mini-cart-items').should('contain', 4)
+
+        cy.get('.woocommerce-message > .button').click()
+        cy.get('.checkout-button').click()
+        cy.get('#terms').click()
+        cy.get('#place_order').click()
+        cy.get('.page-title').should('contain', 'Pedido recebido')
     });
-
-    it('Fazendo as compras', () => {
-        cy.get('.post-2559 > .product-block > .caption > .meta > .infor > .name > a').click()
-        cy.get('.button-variable-item-XL').click()
-        cy.get('.button-variable-item-Green').click()
-        cy.get('.input-text').clear().type(2)
-        cy.get('.single_add_to_cart_button').click()
-
-        cy.get('#primary-menu > .menu-item-629 > a').click()
-        cy.get('.post-3680 > .product-block > .caption > .meta > .infor > .name > a').click()
-        cy.get('.button-variable-item-XL').click()
-        cy.get(':nth-child(2) > .value > .variable-items-wrapper > .variable-item').click()
-        cy.get('.input-text').clear().type(1)
-        cy.get('.single_add_to_cart_button').click()
-
-        cy.get('#primary-menu > .menu-item-629 > a').click()
-        cy.get(':nth-child(2) > .page-numbers').click()
-
-        cy.get('.post-3850 > .product-block > .caption > .meta > .infor > .name > a').click()
-        cy.get('.button-variable-item-XL').click()
-        cy.get('.button-variable-item-Purple').click()
-        cy.get('.input-text').clear().type(1)
-        cy.get('.single_add_to_cart_button').click()
-
-        cy.get('#primary-menu > .menu-item-629 > a').click()
-        cy.get(':nth-child(2) > .page-numbers').click()
-
-        cy.get('.post-2900 > .product-block > .caption > .meta > .infor > .name > a').click()
-        cy.get('.button-variable-item-32').click()
-        cy.get(':nth-child(2) > .value > .variable-items-wrapper').click()
-        cy.get('.input-text').clear().type(1)
-        cy.get('.single_add_to_cart_button').click()
-
-
-    });
-
-    it.only('Compras ao carrinho', () => {
-
-        var quantidade =
-
-            cy.addProdutos('Abominable Hoodie', 'XL', 'Green', 2);
-            cy.addProdutos('Atlas Fitness Tank', 'XL', 'Blue', 1);
-            cy.addProdutos('Autumn Pullie', 'XL', 'Purple', 1);
-            cy.addProdutos('Caesar Warm-Up Pant', '32', 'Gray', 1)
-        
-    });
-    it('Compras ao carrinho', () => {
-
-        var quantidade =
-
-            cy.addProdutos('Atlas Fitness Tank', 'XL', 'Blue', 1)
-
-    });
-    it('Compras ao carrinho', () => {
-
-        var quantidade =
-
-            cy.addProdutos('Autumn Pullie', 'XL', 'Purple', 1)
-
-    });
-    it('Compras ao carrinho', () => {
-
-        var quantidade =
-
-            cy.addProdutos('Caesar Warm-Up Pant', '32', 'Gray', 1)
-    });
-
 });

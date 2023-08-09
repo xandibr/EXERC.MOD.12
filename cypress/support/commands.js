@@ -28,23 +28,15 @@ Cypress.Commands.add('login', (
     usuario = Cypress.env('usuário'),
     senha = Cypress.env('senha')
 ) => {
-
+    cy.visit('minha-conta')
     cy.get('#username').type('aluno_ebac@teste.com')
     cy.get('#password').type('teste@teste.com')
     cy.get('.woocommerce-form > .button').click()
-
 })
 
-Cypress.Commands.add('addProdutos', (peca, tamanho, cor, quantidade) => {
-
-    cy.get('[class="product-block grid"]')
-        .contains(peca).click()
-    cy.get('.button-variable-item-' + tamanho).click()
-    cy.get('.button-variable-item-' + cor).click()
-    cy.get('.input-text').clear().type(quantidade)
+Cypress.Commands.add('addProdutos', (Peça, Tamanho, Cor) => {
+    cy.contains('[class="product-block grid"]',Peça).click()
+    cy.get('.button-variable-item-' + Tamanho).click()
+    cy.get('.button-variable-item-' + Cor).click()
     cy.get('.single_add_to_cart_button').click()
-
-
-
-
 })
